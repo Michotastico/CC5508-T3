@@ -3,7 +3,7 @@ from skimage.filters import threshold_otsu, rank
 __author__ = 'Michel Llorens A.'
 __email__ = 'mllorens@dcc.uchile.cl'
 
-fig_size = 10
+fig_size = 5
 
 fig = disk
 
