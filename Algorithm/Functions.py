@@ -1,6 +1,6 @@
 from skimage.morphology import disk
 from skimage.filters import threshold_otsu, rank
-from skimage.morphology import dilation, watershed
+from skimage.morphology import binary_dilation, watershed
 from scipy import ndimage as ndi
 from skimage.feature import peak_local_max
 from skimage.segmentation import find_boundaries
@@ -8,8 +8,8 @@ __author__ = 'Michel Llorens A.'
 __email__ = 'mllorens@dcc.uchile.cl'
 
 fig_size = 5
-
 fig = disk
+iterations = 3
 
 
 def local_otsu(image):
@@ -33,7 +33,7 @@ def watershed_separation(image, s_elem):
     seg = watershed(-distance, markers, mask=image)
 
     lines = find_boundaries(seg, mode='outer', background=True)
-    lines = dilation(lines, s_elem)
+    lines = binary_dilation(lines, s_elem)
     lines2 = ndi.binary_fill_holes(lines)
     lines2 = lines2 - lines
     return lines2

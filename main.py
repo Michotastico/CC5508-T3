@@ -5,7 +5,7 @@ __author__ = 'Michel Llorens A.'
 __email__ = 'mllorens@dcc.uchile.cl'
 
 
-image = io.imread('Images/imagen0.tiff')
+image = io.imread('Images/imagen2.tiff')
 
 cells = BeWo.cells(image)
 
