@@ -3,11 +3,15 @@ from skimage.filters import threshold_otsu, rank
 __author__ = 'Michel Llorens A.'
 __email__ = 'mllorens@dcc.uchile.cl'
 
+fig_size = 10
+
+fig = disk
+
 
 def local_otsu(image):
     radius = 150
-    selem = disk(radius)
-    local = rank.otsu(image, selem)
+    s_elem = disk(radius)
+    local = rank.otsu(image, s_elem)
     return local
 
 

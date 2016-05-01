@@ -1,19 +1,21 @@
 from skimage import io
 import matplotlib.pyplot as plt
-from Algorithm import Functions, BeWo
+from Algorithm import BeWo, ParasitesSegmentation
 __author__ = 'Michel Llorens A.'
 __email__ = 'mllorens@dcc.uchile.cl'
 
 
-image = io.imread('Images/imagen5.tiff')
+image = io.imread('Images/imagen0.tiff')
 
-#g_otsu = Functions.global_otsu(image)
-proccessed = BeWo.cells(image)
+cells = BeWo.cells(image)
 
-fig, (img, other) = plt.subplots(nrows=1, ncols=2, figsize=(10, 5))
+parasites = ParasitesSegmentation.parasites(image, cells)
 
-img.imshow(image,cmap=plt.cm.gray)
-other.imshow(proccessed,cmap=plt.cm.gray)
+fig, (img, bewo, paras) = plt.subplots(nrows=1, ncols=3, figsize=(10, 5))
+
+img.imshow(image, cmap=plt.cm.gray)
+bewo.imshow(cells, cmap=plt.cm.gray)
+paras.imshow(parasites, cmap=plt.cm.gray)
 
 fig.subplots_adjust(wspace=0.02, hspace=0.02, top=0.9, bottom=0.02, left=0.02, right=0.98)
 
