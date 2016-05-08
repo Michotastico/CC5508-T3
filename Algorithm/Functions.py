@@ -5,6 +5,10 @@ from scipy import ndimage as ndi
 from skimage.feature import peak_local_max
 from skimage.segmentation import find_boundaries
 import matplotlib.pyplot as plt
+from skimage.draw import circle
+from skimage.measure import regionprops
+from skimage.measure import label as Label
+import numpy as np
 __author__ = 'Michel Llorens A.'
 __email__ = 'mllorens@dcc.uchile.cl'
 
@@ -53,15 +57,47 @@ def subtraction(img1, img2):
     return return_image
 
 
+def center_of_mass(image):
+    label, n = ndi.label(image)
+    indexes = range(1, n+1)
+    centers = ndi.measurements.center_of_mass(image, label, indexes)
+    return centers
+
+
+def center_of_mass_max_area(image):
+    label, n = ndi.label(image)
+    props = regionprops(Label(image))
+    index = 0
+    area = 0
+    for i in range(len(props)):
+        if props[i].area > area:
+            area = props[i].area
+            index = i
+    indexes = [0] * n
+    indexes[index] = 1
+    centers = ndi.measurements.center_of_mass(image, label, indexes)
+    return centers
+
+def add_cm(image, centers, color):
+    return_image = image.copy()
+    for center in centers:
+        rr, cc = circle(center[0], center[1], 15)
+        return_image[rr, cc, 0] = 1
+        return_image[rr, cc, color] = 1
+    return return_image
+
+
 def plot_comparison(original, filtered, filter_name):
 
     fig, (ax1, ax2) = plt.subplots(ncols=2, figsize=(8, 4), sharex=True,
                                    sharey=True)
-    ax1.imshow(original, cmap=plt.cm.gray)
+    ax1.imshow(original)
     ax1.set_title('original')
     ax1.axis('off')
     ax1.set_adjustable('box-forced')
-    ax2.imshow(filtered, cmap=plt.cm.gray)
+    ax2.imshow(filtered)
     ax2.set_title(filter_name)
     ax2.axis('off')
     ax2.set_adjustable('box-forced')
+
+    plt.show()
