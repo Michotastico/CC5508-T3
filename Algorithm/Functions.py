@@ -34,6 +34,19 @@ def watershed_separation(image, s_elem):
 
     lines = find_boundaries(seg, mode='outer', background=True)
     lines = binary_dilation(lines, s_elem)
-    lines2 = ndi.binary_fill_holes(lines)
-    lines2 = lines2 - lines
-    return lines2
+    return subtraction(image, lines)
+
+
+def subtraction(img1, img2):
+    size = img1.shape
+    return_image = img1.copy()
+    for x in range(size[0]):
+        for y in range(size[1]):
+            if img1[x,y] == 0:
+                return_image[x,y] = 0
+            else:
+                value = img1[x,y] - img2[x,y]
+                if value < 0:
+                    value = 0
+                return_image[x,y] = value
+    return return_image

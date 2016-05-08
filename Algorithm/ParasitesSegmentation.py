@@ -10,9 +10,10 @@ def parasites(image, cells):
     cells = Functions.global_otsu(cells)
     s_elem = Functions.fig(Functions.fig_size)
     cells = binary_dilation(cells, s_elem)
-    return_image = img - cells
+    return_image = Functions.subtraction(img, cells)
     for i in range(Functions.iterations-1):
         return_image = binary_erosion(return_image)
+    return_image = binary_opening(return_image)
     for i in range(Functions.iterations - 1):
         return_image = binary_dilation(return_image)
     return return_image
