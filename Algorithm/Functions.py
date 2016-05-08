@@ -4,6 +4,7 @@ from skimage.morphology import binary_dilation, watershed
 from scipy import ndimage as ndi
 from skimage.feature import peak_local_max
 from skimage.segmentation import find_boundaries
+import matplotlib.pyplot as plt
 __author__ = 'Michel Llorens A.'
 __email__ = 'mllorens@dcc.uchile.cl'
 
@@ -13,7 +14,7 @@ iterations = 3
 
 
 def local_otsu(image):
-    radius = 150
+    radius = 12
     s_elem = disk(radius)
     local = rank.otsu(image, s_elem)
     return local
@@ -50,3 +51,17 @@ def subtraction(img1, img2):
                     value = 0
                 return_image[x,y] = value
     return return_image
+
+
+def plot_comparison(original, filtered, filter_name):
+
+    fig, (ax1, ax2) = plt.subplots(ncols=2, figsize=(8, 4), sharex=True,
+                                   sharey=True)
+    ax1.imshow(original, cmap=plt.cm.gray)
+    ax1.set_title('original')
+    ax1.axis('off')
+    ax1.set_adjustable('box-forced')
+    ax2.imshow(filtered, cmap=plt.cm.gray)
+    ax2.set_title(filter_name)
+    ax2.axis('off')
+    ax2.set_adjustable('box-forced')
