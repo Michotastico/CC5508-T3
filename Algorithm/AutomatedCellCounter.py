@@ -31,11 +31,11 @@ class Acc:
         fo.write(print_init)
         fo.write("Cells: " + str(len(centers_of_mass)) + "\n")
         for center in centers_of_mass_voronoi:
-            c = "(" + str(center[0]) + ", " + str(center[1]) + ")"
-            fo.write("Biggest area: (" + str(centers_of_mass_voronoi[0][0]) + ", " +
-                     str(centers_of_mass_voronoi[0][1]) + ")\n")
+            if str(center[0]) != "nan" or str(center[1]) != "nan":
+                c = "(" + str(center[0]) + ", " + str(center[1]) + ")"
+                fo.write("Biggest area:" + c + "\n")
 
-        fo.write("Parasites: " +  str(len(self.parasites)) + "\n")
+        fo.write("Parasites: " +  str(len(parasites_center)) + "\n")
         fo.write("Cells with at least 3 parasites: " + cells_with_parasites)
         fo.close()
 

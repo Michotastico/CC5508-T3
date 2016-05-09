@@ -96,7 +96,7 @@ def center_with_parasites(voronoi, cm_parasites):
 def add_cm(image, centers, color):
     return_image = image.copy()
     for center in centers:
-        rr, cc = circle(center[0], center[1], 15)
+        rr, cc = circle(center[0], center[1], 10)
         return_image[rr, cc, 0] = 1
         return_image[rr, cc, color] = 1
     return return_image

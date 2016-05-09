@@ -1,0 +1,5 @@
+Image: imagen8.tiff
+Cells: 31
+Biggest area:(718.396395143, 274.441232625)
+Parasites: 177
+Cells with at least 3 parasites: 9

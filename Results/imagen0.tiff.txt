@@ -1,0 +1,5 @@
+Image: imagen0.tiff
+Cells: 27
+Biggest area:(310.905546024, 511.985048686)
+Parasites: 8
+Cells with at least 3 parasites: 0
