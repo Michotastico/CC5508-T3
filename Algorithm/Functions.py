@@ -78,6 +78,21 @@ def center_of_mass_max_area(image):
     centers = ndi.measurements.center_of_mass(image, label, indexes)
     return centers
 
+
+def center_with_parasites(voronoi, cm_parasites):
+    image = -voronoi
+    props = regionprops(Label(image))
+    big_counter = 0
+    for i in range(len(props)):
+        counter = 0
+        for parasite in cm_parasites:
+            if parasite in props[i].coords:
+                counter += 1
+        if counter > 3:
+            big_counter += 1
+    return big_counter
+
+
 def add_cm(image, centers, color):
     return_image = image.copy()
     for center in centers:
